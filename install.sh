@@ -111,3 +111,7 @@ echo "==> Copying tutorial config into place"
 mkdir -p /etc/spack
 cp $script_dir/config/*.yaml /etc/spack/
 chmod -R go+r /etc/spack
+
+
+echo "==> Add some aliases"
+echo "alias e='emacs -nw'" >> /etc/bash.bashrc
