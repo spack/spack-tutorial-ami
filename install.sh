@@ -104,14 +104,10 @@ sudo rm -rf /home/spack*/.viminfo
 
 echo "==> Installing the backup mirror"
 aws s3 sync --no-sign-request s3://spack-tutorial-container/mirror/ /mirror
+chmod -R go+r /mirror
 
 
 echo "==> Copying tutorial config into place"
 mkdir -p /etc/spack
 cp $script_dir/config/*.yaml /etc/spack/
-
-
-# ensure permissions are ok
-chmod -R go+r /mirror
 chmod -R go+r /etc/spack
-chmod go+r /tutorial/.test/tutorial-test.sh
