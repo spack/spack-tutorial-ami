@@ -1,0 +1,4 @@
+packages:
+  # Spack tutorial uses generic binaries so it can run anywhere.
+  all:
+    target: [x86_64]

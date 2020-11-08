@@ -1,0 +1,3 @@
+config:
+  # Suppress self-signed cert warnings for tutorial
+  suppress_gpg_warnings: true
