@@ -63,7 +63,8 @@ python3 -m pip install --upgrade pip \
     setuptools \
     wheel \
     gnureadline \
-    boto3
+    boto3 \
+    awscli  # needed if we upgrdae boto3
 
 
 echo "==> Cleaning up old apt files"
