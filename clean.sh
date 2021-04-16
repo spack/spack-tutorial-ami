@@ -6,9 +6,17 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 
 # clean out any spack directories in home directories of spack* accounts
-sudo rm -rf /home/spack*/.spack
-sudo rm -rf /home/spack*/.gnupg
-sudo rm -rf /home/spack*/.bash_history
-sudo rm -rf /home/spack*/.cache
-sudo rm -rf /home/spack*/.emacs.d
-sudo rm -rf /home/spack*/.viminfo
+for i in `seq 1 10`; do
+    user="spack${i}"
+    sudo rm -rf /home/${user}/.spack
+    sudo rm -rf /home/${user}/.gnupg
+    sudo rm -rf /home/${user}/.bash_history
+    sudo rm -rf /home/${user}/.bash_logout
+    sudo rm -rf /home/${user}/.cache
+    sudo rm -rf /home/${user}/.emacs.d
+    sudo rm -rf /home/${user}/.viminfo
+    sudo rm -rf /home/${user}/.Xauthority
+    sudo rm -rf /home/${user}/spack
+    sudo rm -rf /home/${user}/spack-tutorial
+    sudo rm -rf /home/${user}/.local
+done
