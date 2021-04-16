@@ -103,7 +103,7 @@ sudo rm -rf /home/spack*/.viminfo
 
 
 echo "==> Installing the backup mirror"
-aws s3 sync --no-sign-request s3://spack-binaries-prs/tutorial/ecp21/mirror /mirror
+aws s3 sync --delete --no-sign-request s3://spack-binaries-prs/tutorial/ecp21/mirror /mirror
 chmod -R go+r /mirror
 
 
