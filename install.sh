@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright 2013-2020 Lawrence Livermore National Security, LLC and other
+# Copyright 2013-2021 Lawrence Livermore National Security, LLC and other
 # Spack Project Developers. See the top-level COPYRIGHT file for details.
 #
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
@@ -9,6 +9,9 @@
 # This is a setup script for our Spack tutorial.
 # It adds everything you need to a fresh ubuntu image.
 #
+
+# S3 URL for the binaries to be synced to /mirror
+S3_TUTORIAL_BUILDCACHE_URL="s3://spack-binaries-develop/tutorial"
 
 # directory containing this script
 script_dir="$(dirname $0)"
@@ -19,44 +22,29 @@ apt upgrade -y
 
 
 echo "==> Installing apt packages needed by the tutorial"
-apt install -y \
-    git \
-    gcc \
-    g++ \
-    gfortran  \
-    graphviz \
-    patch \
-    bzip2 \
-    findutils \
-    automake \
+apt install -y --no-install-recommends \
     autoconf \
+    build-essential \
+    bsdmainutils \
+    ca-certificates \
+    curl \
+    clang-7 \
+    emacs \
+    file \
+    g++ g++-6 \
+    gcc gcc-6 \
+    gfortran gfortran-6 \
+    git \
+    gnupg2 \
+    iproute2 \
     make \
-    m4 \
+    openssh-server \
+    python3 \
+    python3-pip \
+    tcl \
     unzip \
     vim \
-    file \
-    wget \
-    curl \
-    mercurial \
-    cpio \
-    gpg \
-    zlib1g-dev \
-    libffi-dev \
-    libssl-dev \
-    libxml2-dev \
-    rsync \
-    locate \
-    pciutils \
-    iputils-ping \
-    iproute2 \
-    emacs \
-    gcc-6 \
-    clang-6.0 \
-    ncurses-dev \
-    sudo \
-    python3-pip \
-    awscli
-
+    wget
 
 echo "==> Installing python3 packages needed by the tutorial"
 python3 -m pip install --upgrade pip \
@@ -66,10 +54,10 @@ python3 -m pip install --upgrade pip \
     boto3 \
     awscli  # needed if we upgrdae boto3
 
+update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 echo "==> Cleaning up old apt files"
 apt autoremove --purge && apt clean
-
 
 echo "==> Ensuring spack can detect gpg"
 ln -s /usr/bin/gpg /usr/bin/gpg2
@@ -103,7 +91,7 @@ sudo rm -rf /home/spack*/.viminfo
 
 
 echo "==> Installing the backup mirror"
-aws s3 sync --no-sign-request s3://spack-tutorial-container/mirror/ /mirror
+aws s3 sync --no-sign-request $S3_TUTORIAL_BUILDCACHE_URL /mirror
 chmod -R go+r /mirror
 
 
