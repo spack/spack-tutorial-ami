@@ -17,12 +17,12 @@ S3_TUTORIAL_BUILDCACHE_URL="s3://spack-binaries-develop/tutorial"
 script_dir="$(dirname $0)"
 
 echo "==> Doing apt updates"
-apt update -y
-apt upgrade -y
+sudo apt update -y
+sudo apt upgrade -y
 
 
 echo "==> Installing apt packages needed by the tutorial"
-apt install -y --no-install-recommends \
+sudo apt install -y --no-install-recommends \
     autoconf \
     build-essential \
     bsdmainutils \
@@ -47,20 +47,20 @@ apt install -y --no-install-recommends \
     wget
 
 echo "==> Installing python3 packages needed by the tutorial"
-python3 -m pip install --upgrade pip \
+sudo python3 -m pip install --upgrade pip \
     setuptools \
     wheel \
     gnureadline \
     boto3 \
     awscli  # needed if we upgrdae boto3
 
-update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 
 echo "==> Cleaning up old apt files"
-apt autoremove --purge && apt clean
+sudo apt autoremove --purge && apt clean
 
 echo "==> Ensuring spack can detect gpg"
-ln -s /usr/bin/gpg /usr/bin/gpg2
+sudo ln -s /usr/bin/gpg /usr/bin/gpg2
 
 
 echo "==> Creating tutorial users"
@@ -68,7 +68,7 @@ for i in `seq 1 10`; do
     echo "    creating $username"
     username="spack${i}"
     password=$(python3 -c "import crypt; print(crypt.crypt('${username}'))")
-    useradd \
+    sudo useradd \
 	--create-home \
 	--password $password \
 	--shell /bin/bash \
@@ -77,8 +77,8 @@ done
 
 
 echo "==> Enabling password login"
-sed -i~ 's/^PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
-service sshd restart
+sudo sed -i~ 's/^PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+sudo service sshd restart
 
 
 echo "==> Cleaning up home directories"
@@ -91,15 +91,15 @@ sudo rm -rf /home/spack*/.viminfo
 
 
 echo "==> Installing the backup mirror"
-aws s3 sync --no-sign-request $S3_TUTORIAL_BUILDCACHE_URL /mirror
-chmod -R go+r /mirror
+sudo aws s3 sync --no-sign-request $S3_TUTORIAL_BUILDCACHE_URL /mirror
+sudo chmod -R go+r /mirror
 
 
 echo "==> Copying tutorial config into place"
-mkdir -p /etc/spack
-cp $script_dir/config/*.yaml /etc/spack/
-chmod -R go+r /etc/spack
+sudo mkdir -p /etc/spack
+sudo cp $script_dir/config/*.yaml /etc/spack/
+sudo chmod -R go+r /etc/spack
 
 
 echo "==> Add some aliases"
-echo "alias e='emacs -nw'" >> /etc/bash.bashrc
+sudo sh -c 'echo "alias e=''emacs -nw''" >> /etc/bash.bashrc'
