@@ -102,4 +102,4 @@ sudo chmod -R go+r /etc/spack
 
 
 echo "==> Add some aliases"
-sudo sh -c 'echo "alias e=''emacs -nw''" >> /etc/bash.bashrc'
+sudo sh -c "echo alias e=\'emacs -nw\' >> /etc/bash.bashrc"
