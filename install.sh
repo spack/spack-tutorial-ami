@@ -23,6 +23,8 @@ apt install -y \
     git \
     gcc \
     g++ \
+    clang-7 \
+    clang++-7 \
     gfortran  \
     graphviz \
     patch \
