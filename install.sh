@@ -10,6 +10,9 @@
 # It adds everything you need to a fresh ubuntu image.
 #
 
+# URL for buildcache to copy into AMI
+REMOTE_BUILDCACHE_URL="s3://spack-binaries/releases/v0.20/tutorial"
+
 # directory containing this script
 script_dir="$(dirname $0)"
 
@@ -21,11 +24,14 @@ apt upgrade -y
 echo "==> Installing apt packages needed by the tutorial"
 apt install -y \
     git \
-    gcc \
-    g++ \
-    clang-7 \
-    clang++-7 \
-    gfortran  \
+    gcc g++ gfortran \
+    gcc-10 gfortran-10 g++-10 \
+    gcc-12 gfortran-12 g++-12 \
+    bash-completion \
+    tree \
+    git \
+    clang \
+    libc-dev \
     graphviz \
     patch \
     bzip2 \
@@ -52,13 +58,10 @@ apt install -y \
     iputils-ping \
     iproute2 \
     emacs \
-    gcc-6 \
-    clang-6.0 \
     ncurses-dev \
     sudo \
     python3-pip \
     awscli
-
 
 echo "==> Installing python3 packages needed by the tutorial"
 python3 -m pip install --upgrade pip \
@@ -105,7 +108,7 @@ sudo rm -rf /home/spack*/.viminfo
 
 
 echo "==> Installing the backup mirror"
-aws s3 sync --delete --no-sign-request s3://spack-binaries/releases/v0.19/tutorial /mirror
+aws s3 sync --delete --no-sign-request $REMOTE_BUILDCACHE_URL /mirror
 chmod -R go+r /mirror
 
 
