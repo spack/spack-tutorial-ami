@@ -63,7 +63,8 @@ apt install -y \
     ncurses-dev \
     sudo \
     python3-pip \
-    awscli
+    awscli \
+    mpich
 
 echo "==> Installing python3 packages needed by the tutorial"
 python3 -m pip install --upgrade pip \
