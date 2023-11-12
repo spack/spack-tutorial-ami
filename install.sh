@@ -10,8 +10,11 @@
 # It adds everything you need to a fresh ubuntu image.
 #
 
+#------------------------------------------------------------------------
+# !! UPDATE BEFORE NEXT TUTORIAL !!
+#------------------------------------------------------------------------
 # URL for buildcache to copy into AMI
-REMOTE_BUILDCACHE_URL="s3://spack-binaries/releases/v0.20/tutorial"
+REMOTE_BUILDCACHE_URL="s3://spack-binaries/releases/v0.21/tutorial"
 
 # directory containing this script
 script_dir="$(dirname $0)"
@@ -60,7 +63,8 @@ apt install -y \
     ncurses-dev \
     sudo \
     python3-pip \
-    awscli
+    awscli \
+    mpich
 
 echo "==> Installing python3 packages needed by the tutorial"
 python3 -m pip install --upgrade pip \
@@ -85,10 +89,10 @@ for i in `seq 1 10`; do
     username="spack${i}"
     password=$(python3 -c "import crypt; print(crypt.crypt('${username}'))")
     useradd \
-	--create-home \
-	--password $password \
-	--shell /bin/bash \
-	$username
+    --create-home \
+    --password $password \
+    --shell /bin/bash \
+    $username
 done
 
 
