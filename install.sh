@@ -14,7 +14,7 @@
 # !! UPDATE BEFORE NEXT TUTORIAL !!
 #------------------------------------------------------------------------
 # URL for buildcache to copy into AMI
-REMOTE_BUILDCACHE_URL="s3://spack-binaries/releases/v0.21/tutorial"
+REMOTE_BUILDCACHE_URL="s3://spack-binaries/releases/v0.22/tutorial"
 
 # directory containing this script
 script_dir="$(dirname $0)"
