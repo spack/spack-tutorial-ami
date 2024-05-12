@@ -64,7 +64,8 @@ apt install -y \
     sudo \
     python3-pip \
     awscli \
-    mpich
+    mpich \
+    docker.io
 
 echo "==> Installing python3 packages needed by the tutorial"
 python3 -m pip install --upgrade pip \
