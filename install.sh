@@ -97,7 +97,8 @@ done
 
 
 echo "==> Enabling password login"
-sed -i~ 's/^PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+perl -i~ -pe 's/^\#?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+perl -i~ -pe 's/^\#?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config.d/*.conf
 service sshd restart
 
 
