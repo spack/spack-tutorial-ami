@@ -65,7 +65,10 @@ apt install -y \
     python3-pip \
     awscli \
     mpich \
-    docker.io
+    docker.io \
+    fish \
+    rsync \
+    jq
 
 echo "==> Installing python3 packages needed by the tutorial"
 python3 -m pip install --upgrade pip \
@@ -96,6 +99,17 @@ for i in `seq 1 10`; do
     $username
 done
 
+echo "== Creating a group of docker users"
+sudo groupadd docker
+for i in `seq 1 10`; do
+    sudo usermod -aG docker "spack${i}"
+done
+
+echo "== Starting Docker services"
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+sudo services docker start
+sudo services containerd start
 
 echo "==> Enabling password login"
 perl -i~ -pe 's/^\#?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
