@@ -14,7 +14,7 @@
 # !! UPDATE BEFORE NEXT TUTORIAL !!
 #------------------------------------------------------------------------
 # URL for buildcache to copy into AMI
-REMOTE_BUILDCACHE_URL="s3://spack-binaries/releases/v0.22/tutorial"
+REMOTE_BUILDCACHE_URL="s3://spack-binaries/releases/v0.23/tutorial"
 
 # directory containing this script
 script_dir="$(dirname $0)"
@@ -26,49 +26,49 @@ apt upgrade -y
 
 echo "==> Installing apt packages needed by the tutorial"
 apt install -y \
-    git \
+    autoconf \
+    automake \
+    awscli \
+    bash-completion \
+    bzip2 \
+    clang \
+    cpio \
+    curl \
+    docker.io \
+    emacs \
+    file \
+    findutils \
+    fish \
     gcc g++ gfortran \
     gcc-10 gfortran-10 g++-10 \
-    bash-completion \
-    tree \
     git \
-    clang \
-    libc-dev \
-    graphviz \
-    patch \
-    bzip2 \
-    findutils \
-    automake \
-    autoconf \
-    make \
-    m4 \
-    unzip \
-    vim \
-    file \
-    wget \
-    curl \
-    mercurial \
-    cpio \
+    git \
     gpg \
-    zlib1g-dev \
+    graphviz \
+    iproute2 \
+    iputils-ping \
+    jq \
+    libc-dev \
     libffi-dev \
     libssl-dev \
     libxml2-dev \
-    rsync \
     locate \
-    pciutils \
-    iputils-ping \
-    iproute2 \
-    emacs \
-    ncurses-dev \
-    sudo \
-    python3-pip \
-    awscli \
+    m4 \
+    make \
+    mercurial \
     mpich \
-    docker.io \
-    fish \
+    ncurses-dev \
+    patch \
+    pciutils \
+    python3-pip \
     rsync \
-    jq
+    rsync \
+    sudo \
+    tree \
+    unzip \
+    vim \
+    wget \
+    zlib1g-dev
 
 echo "==> Installing python3 packages needed by the tutorial"
 python3 -m pip install --upgrade pip \
