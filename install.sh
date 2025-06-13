@@ -105,6 +105,12 @@ for i in `seq 1 10`; do
     sudo usermod -aG docker "spack${i}"
 done
 
+echo "== Creating a group of spack users"
+sudo groupadd spack
+for i in `seq 1 10`; do
+    sudo usermod -aG spack "spack${i}"
+done
+
 echo "== Starting Docker services"
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
