@@ -14,7 +14,7 @@
 # !! UPDATE BEFORE NEXT TUTORIAL !!
 #------------------------------------------------------------------------
 # URL for buildcache to copy into AMI
-REMOTE_BUILDCACHE_URL="s3://spack-binaries/releases/v0.23/tutorial"
+REMOTE_BUILDCACHE_URL="spack-binaries/v0.23.1/tutorial"
 
 # directory containing this script
 script_dir="$(dirname $0)"
@@ -28,7 +28,6 @@ echo "==> Installing apt packages needed by the tutorial"
 apt install -y \
     autoconf \
     automake \
-    awscli \
     bash-completion \
     bzip2 \
     clang \
@@ -61,7 +60,7 @@ apt install -y \
     patch \
     pciutils \
     python3-pip \
-    rsync \
+    rclone \
     rsync \
     sudo \
     tree \
@@ -70,28 +69,17 @@ apt install -y \
     wget \
     zlib1g-dev
 
-echo "==> Installing python3 packages needed by the tutorial"
-python3 -m pip install --upgrade pip \
-    setuptools \
-    wheel \
-    gnureadline \
-    boto3 \
-    awscli  # needed if we upgrdae boto3
-
-
 echo "==> Cleaning up old apt files"
 apt autoremove --purge && apt clean
-
 
 echo "==> Ensuring spack can detect gpg"
 ln -s /usr/bin/gpg /usr/bin/gpg2
 
-
 echo "==> Creating tutorial users"
-for i in `seq 1 10`; do
+for i in `seq 0 10`; do
     echo "    creating $username"
     username="spack${i}"
-    password=$(python3 -c "import crypt; print(crypt.crypt('${username}'))")
+    password=$(openssl passwd -6 $username)
     useradd \
     --create-home \
     --password $password \
@@ -101,21 +89,18 @@ done
 
 echo "== Creating a group of docker users"
 sudo groupadd docker
-for i in `seq 1 10`; do
+for i in `seq 0 10`; do
     sudo usermod -aG docker "spack${i}"
 done
 
 echo "== Starting Docker services"
-sudo systemctl enable docker.service
-sudo systemctl enable containerd.service
-sudo services docker start
-sudo services containerd start
+sudo systemctl enable --now docker.service
+sudo systemctl enable --now containerd.service
 
 echo "==> Enabling password login"
 perl -i~ -pe 's/^\#?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 perl -i~ -pe 's/^\#?PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config.d/*.conf
-service sshd restart
-
+systemctl restart ssh
 
 echo "==> Cleaning up home directories"
 sudo rm -rf /home/spack*/.spack
@@ -125,17 +110,14 @@ sudo rm -rf /home/spack*/.cache
 sudo rm -rf /home/spack*/.emacs.d
 sudo rm -rf /home/spack*/.viminfo
 
-
 echo "==> Installing the backup mirror"
-aws s3 sync --delete --no-sign-request $REMOTE_BUILDCACHE_URL /mirror
+rclone copy :s3:$REMOTE_BUILDCACHE_URL /mirror
 chmod -R go+r /mirror
-
 
 echo "==> Copying tutorial config into place"
 mkdir -p /etc/spack
 cp $script_dir/config/*.yaml /etc/spack/
 chmod -R go+r /etc/spack
-
 
 echo "==> Add some aliases"
 echo "alias e='emacs -nw'" >> /etc/bash.bashrc
