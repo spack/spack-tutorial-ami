@@ -14,7 +14,7 @@
 # !! UPDATE BEFORE NEXT TUTORIAL !!
 #------------------------------------------------------------------------
 # URL for buildcache to copy into AMI
-REMOTE_BUILDCACHE_URL="spack-binaries/v1.1.0/tutorial"
+REMOTE_BUILDCACHE_URL="spack-binaries/v2025.11.0/tutorial"
 
 # directory containing this script
 script_dir="$(dirname $0)"
