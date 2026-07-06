@@ -14,7 +14,7 @@
 # !! UPDATE BEFORE NEXT TUTORIAL !!
 #------------------------------------------------------------------------
 # URL for buildcache to copy into AMI
-REMOTE_BUILDCACHE_URL="spack-binaries/v2025.11.0/tutorial"
+REMOTE_BUILDCACHE_URL="spack-binaries/v2026.06.0/tutorial"
 
 # directory containing this script
 script_dir="$(dirname $0)"
@@ -25,49 +25,14 @@ apt upgrade -y
 
 
 echo "==> Installing apt packages needed by the tutorial"
-apt install -y \
-    autoconf \
-    automake \
+apt-get install -y --no-install-recommends \
     bash-completion \
-    bzip2 \
-    clang \
-    cpio \
-    curl \
-    docker.io \
+    ca-certificates \
     emacs \
-    file \
-    findutils \
-    fish \
-    gcc g++ gfortran \
-    gcc-10 gfortran-10 g++-10 \
-    git \
-    git \
-    gpg \
-    graphviz \
-    iproute2 \
-    iputils-ping \
     jq \
-    libc-dev \
-    libffi-dev \
-    libssl-dev \
-    libxml2-dev \
-    locate \
-    m4 \
-    make \
-    mercurial \
-    mpich \
-    ncurses-dev \
-    patch \
-    pciutils \
-    python3-pip \
-    rclone \
-    rsync \
-    sudo \
-    tree \
-    unzip \
+    less \
     vim \
-    wget \
-    zlib1g-dev
+    rclone
 
 echo "==> Cleaning up old apt files"
 apt autoremove --purge && apt clean
