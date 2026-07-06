@@ -28,6 +28,7 @@ echo "==> Installing apt packages needed by the tutorial"
 apt-get install -y --no-install-recommends \
     bash-completion \
     ca-certificates \
+    docker.io \
     emacs \
     jq \
     less \
