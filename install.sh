@@ -27,13 +27,32 @@ apt upgrade -y
 echo "==> Installing apt packages needed by the tutorial"
 apt-get install -y --no-install-recommends \
     bash-completion \
+    bzip2 \
     ca-certificates \
+    clang \
     docker.io \
     emacs \
+    file \
+    fish \
+    gcc g++ gfortran \
+    gcc-14 g++-14 gfortran-14 \
+    git \
+    gzip \
+    gpg \
+    graphviz \
     jq \
     less \
-    vim \
-    rclone
+    patch \
+    python3 \
+    python3-pip \
+    rclone \
+    tar \
+    tree \
+    unzip \
+    xz \
+    zstd \
+    vim
+
 
 echo "==> Cleaning up old apt files"
 apt autoremove --purge && apt clean
