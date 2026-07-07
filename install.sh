@@ -37,11 +37,12 @@ apt-get install -y --no-install-recommends \
     gcc g++ gfortran \
     gcc-14 g++-14 gfortran-14 \
     git \
-    gzip \
     gpg \
     graphviz \
+    gzip \
     jq \
     less \
+    mpich \
     patch \
     python3 \
     python3-pip \
