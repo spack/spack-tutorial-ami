@@ -30,6 +30,7 @@ apt-get install -y --no-install-recommends \
     bzip2 \
     ca-certificates \
     clang \
+    curl \
     docker.io \
     emacs \
     file \
