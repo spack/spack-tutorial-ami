@@ -14,7 +14,7 @@
 # !! UPDATE BEFORE NEXT TUTORIAL !!
 #------------------------------------------------------------------------
 # URL for buildcache to copy into AMI
-REMOTE_BUILDCACHE_URL="spack-binaries/v2025.11.0/tutorial"
+REMOTE_BUILDCACHE_URL="spack-binaries/v2026.06.0/tutorial"
 
 # directory containing this script
 script_dir="$(dirname $0)"
@@ -25,49 +25,40 @@ apt upgrade -y
 
 
 echo "==> Installing apt packages needed by the tutorial"
-apt install -y \
-    autoconf \
-    automake \
+# The following sections require each package as an external
+# basics: graphviz
+# environments: jq
+# config: mpich, curl
+apt-get install -y --no-install-recommends \
     bash-completion \
     bzip2 \
+    ca-certificates \
     clang \
-    cpio \
     curl \
     docker.io \
     emacs \
     file \
-    findutils \
     fish \
     gcc g++ gfortran \
-    gcc-10 gfortran-10 g++-10 \
-    git \
+    gcc-14 g++-14 gfortran-14 \
     git \
     gpg \
     graphviz \
-    iproute2 \
-    iputils-ping \
+    gzip \
     jq \
-    libc-dev \
-    libffi-dev \
-    libssl-dev \
-    libxml2-dev \
-    locate \
-    m4 \
-    make \
-    mercurial \
+    less \
     mpich \
-    ncurses-dev \
     patch \
-    pciutils \
+    python3 \
     python3-pip \
     rclone \
-    rsync \
-    sudo \
+    tar \
     tree \
     unzip \
-    vim \
-    wget \
-    zlib1g-dev
+    xz-utils \
+    zstd \
+    vim
+
 
 echo "==> Cleaning up old apt files"
 apt autoremove --purge && apt clean
