@@ -49,7 +49,7 @@ apt-get install -y --no-install-recommends \
     tar \
     tree \
     unzip \
-    xz \
+    xz-utils \
     zstd \
     vim
 
