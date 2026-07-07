@@ -27,6 +27,7 @@ apt upgrade -y
 echo "==> Installing apt packages needed by the tutorial"
 # The following sections require each package as an external
 # basics: graphviz
+# environments: jq
 # config: mpich, curl
 apt-get install -y --no-install-recommends \
     bash-completion \
